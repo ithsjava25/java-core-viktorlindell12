@@ -10,12 +10,13 @@ permissions:
   pull-requests: write
 
 jobs:
-  ai_feedback:
-    name: AI-Powered Feedback
+  run-autograding-tests:
+    name: AI-Powered Feedback and Autograding
     runs-on: ubuntu-latest
     env:
       OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
       SYSTEM_PROMPT: ${{ vars.SYSTEM_PROMPT }}
+    if: github.actor != 'github-classroom[bot]'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -178,19 +179,11 @@ jobs:
               });
               console.log(`🆕 Posted new comment on PR #${prNumber}`);
             }
-  run-autograding-tests:
-    name: Autograding
-    runs-on: ubuntu-latest
-    if: github.actor != 'github-classroom[bot]'
-    steps:
       - name: Set up Java 25
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '25'
-
-      - name: Checkout code
-        uses: actions/checkout@v5
 
       - name: Compilation Check
         id: compilation-check
