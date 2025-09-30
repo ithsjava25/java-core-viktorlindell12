@@ -1,7 +1,13 @@
 name: Autograding Tests
-'on':
-  - push
-  - repository_dispatch
+on:
+  push:
+    branches:
+      - main
+  repository_dispatch:
+
+concurrency:
+  group: autograding-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   checks: write
