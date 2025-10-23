@@ -33,9 +33,9 @@ public class ElectronicsProduct extends Product implements Shippable {
     // --- Shippable ---
     @Override
     public BigDecimal calculateShippingCost() {
-        BigDecimal cost = BigDecimal.valueOf(79); // baspris
+        BigDecimal cost = BigDecimal.valueOf(79);
         if (weight.doubleValue() > 5.0) {
-            cost = cost.add(BigDecimal.valueOf(49)); // extra om >5 kg
+            cost = cost.add(BigDecimal.valueOf(49));
         }
         return cost;
     }

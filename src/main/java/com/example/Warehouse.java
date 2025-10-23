@@ -18,6 +18,9 @@ public class Warehouse {
     private Warehouse(String name) {
         this.name = name;
     }
+    public static Warehouse getInstance() {
+        return getInstance("default");
+    }
 
     public static Warehouse getInstance(String name) {
         return INSTANCES.computeIfAbsent(name, Warehouse::new);
@@ -38,6 +41,9 @@ public class Warehouse {
 
     public void addProduct(Product product) {
         if (product == null) throw new IllegalArgumentException("Product cannot be null.");
+        if (getProductById(product.uuid()).isPresent()) {
+            throw new IllegalArgumentException("Product with that id already exists, use updateProduct for updates.");
+        }
         products.add(product);
     }
 
